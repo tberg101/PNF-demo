@@ -49,7 +49,7 @@ class DemosController extends AppController {
 		if ($this->request->is('post')) {
             if(!empty($this->request->data))
             {
-                //Check if image has been uploaded
+                //Check if logo image has been uploaded
                 if(!empty($this->request->data['Demo']['logo_upload']['name']))
                 {
                     $file = $this->request->data['Demo']['logo_upload']; //put the data into a var for easy use

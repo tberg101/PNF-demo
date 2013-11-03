@@ -33,11 +33,30 @@ class StepsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+        $this->layout = 'user_step';
+//        $id = (isset($this->request->params['named']['page'])) ? $this->request->params['named']['page'] : $id;
 		if (!$this->Step->exists($id)) {
 			throw new NotFoundException(__('Invalid step'));
 		}
 		$options = array('conditions' => array('Step.' . $this->Step->primaryKey => $id));
-		$this->set('step', $this->Step->find('first', $options));
+        $step = $this->Step->find('first', $options);
+        $steps = $this->Step->find('all', array('conditions' => array('Step.demo_id' => $step['Step']['demo_id'])));
+
+        if (isset($this->request->params['named']['page'])){
+            $step = $steps[$this->request->params['named']['page']-1];
+        }
+
+
+        $this->set('step', $step);
+        $this->Paginator->settings = array(
+        'conditions' => array('Step.demo_id' => $step['Step']['demo_id']),
+            'fields' => array('Step.id', 'Step.demo_id'),
+            'limit' => 1,
+            'maxLimit' => 10
+        );
+        $this->set('steps', $this->Paginator->paginate());
+//        $this->set('steps', $this->Paginator->paginate('Step'));
+//        $this->set('steps', $steps);
 	}
 
 /**

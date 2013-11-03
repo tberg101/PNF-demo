@@ -60,7 +60,8 @@
 			<td><?php echo $step['title']; ?></td>
 			<td><?php echo $step['image_upload']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'steps', 'action' => 'view', $step['id'])); ?>
+				<?php echo $this->Html->link(__('Admin View'), array('controller' => 'steps', 'action' => 'view', $step['id'], 'admin' => true)); ?>
+				<?php echo $this->Html->link(__('User View'), array('controller' => 'steps', 'action' => 'view', $step['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'steps', 'action' => 'edit', $step['id'])); ?>
 				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'steps', 'action' => 'delete', $step['id']), null, __('Are you sure you want to delete # %s?', $step['id'])); ?>
 			</td>
