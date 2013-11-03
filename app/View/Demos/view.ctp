@@ -21,11 +21,6 @@
 			<?php echo h($demo['Demo']['url']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Title'); ?></dt>
-		<dd>
-			<?php echo h($demo['Demo']['title']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Logo'); ?></dt>
 		<dd>
 			<?php echo $this->Html->image('uploads/logos/' . $demo['Demo']['logo_upload']); ?>
@@ -54,7 +49,6 @@
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Demo Id'); ?></th>
 		<th><?php echo __('Step Number'); ?></th>
-		<th><?php echo __('Title'); ?></th>
 		<th><?php echo __('Image Url'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>

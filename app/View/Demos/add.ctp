@@ -1,28 +1,71 @@
+
+<!--TODO: extract these css rules to a separated file-->
+
+<style type="text/css">
+
+    div#add-step-div {
+        clear: both;
+        margin-bottom: 0px;
+        padding: 0px;
+    }
+</style>
+
 <?php echo $this->Html->script('jquery-1.10.2.min'); // Include jQuery library ?>
+
 <div class="demos form">
 <?php echo $this->Form->create('Demo', array('type' => 'file')); ?>
 	<fieldset>
 		<legend><?php echo __('Add Demo'); ?></legend>
 	<?php
-		echo $this->Form->input('client_id');
+        end($clients);         // move the internal pointer to the end of the array
+		echo $this->Form->input('client_id', array('default' => key($clients)));
 		echo $this->Form->input('name');
 		echo $this->Form->input('url');
-		echo $this->Form->input('title');
 		echo $this->Form->input('logo_upload', array('type' => 'file'));
 	?>
 	</fieldset>
     <?php $i = 0; //STEP INDEX ?>
     <fieldset id="add">
-        <legend><?php echo __('Add Step'); ?></legend>
+        <legend><?php echo __('DEMO Steps'); ?></legend>
         <?php
         echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
-        echo $this->Form->input('Step.'.$i.'.title');
-        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file'));
-        echo $this->Form->button('Add Step', array('type' => 'button', 'id' => 'add-step'));
+        echo $this->Form->input('Step.'.$i.'.title', array('div' => false, 'value' => 'Search Flight'));
+        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
         $i++;
         ?>
+        <?php
+        echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
+        echo $this->Form->input('Step.'.$i.'.title', array('div' => false, 'value' => 'Select Flight'));
+        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
+        $i++;
+        ?>
+        <?php
+        echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
+        echo $this->Form->input('Step.'.$i.'.title', array('div' => false, 'value' => 'Cross-sell'));
+        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
+        $i++;
+        ?>
+        <?php
+        echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
+        echo $this->Form->input('Step.'.$i.'.title', array('div' => false, 'value' => 'Complete booking'));
+        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
+        $i++;
+        ?>
+        <?php
+        echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
+        echo $this->Form->input('Step.'.$i.'.title', array('div' => false, 'value' => 'Service activation'));
+        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
+        $i++;
+        ?>
+        <?php
+        echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
+        echo $this->Form->input('Step.'.$i.'.title', array('div' => false, 'value' => 'Check-in Confirmation'));
+        echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
+        echo $this->Form->button('Add Step', array('type' => 'button', 'id' => 'add-step', 'div' => false));
+        $i++;
+        ?>
+        <div id="add-step-div"></div>
     </fieldset>
-    <div id="add-step-div"></div>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
@@ -37,18 +80,19 @@
 	</ul>
 </div>
 
+
+
 <script>
     $("#add-step").click(function(e) {
         $('#add-step-div').trigger('addStep');
     });
     $('#add-step-div').on('addStep', function() {
         console.log(this);
-        $(this).append('<fieldset id="add">'
-            //+'<legend>--><?php //echo __("Add Step"); ?><!--</legend>'
-            +'  <?php echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
-                      echo $this->Form->input('Step.'.$i.'.title');
-                      echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file'));
+        $(this).append('<?php echo $this->Form->hidden('Step.'.$i.'.step_number', array('value' => $i));
+                      echo $this->Form->input('Step.'.$i.'.title', array('div' => false));
+                      echo $this->Form->input('Step.'.$i.'.image_upload', array('type' => 'file', 'div' => false, 'label' => false));
 //                      echo $this->Form->button('Add Step', array('type' => 'button', 'id' => 'add-step'));
                       $i++;
-            ?> ' + '</fieldset>');
-    });</script>
+            ?> ');
+    });
+</script>

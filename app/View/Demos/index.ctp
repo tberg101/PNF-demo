@@ -6,7 +6,6 @@
 			<th><?php echo $this->Paginator->sort('client_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('url'); ?></th>
-			<th><?php echo $this->Paginator->sort('title'); ?></th>
 			<th><?php echo $this->Paginator->sort('logo_upload'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -18,7 +17,6 @@
 		</td>
 		<td><?php echo h($demo['Demo']['name']); ?>&nbsp;</td>
 		<td><?php echo h($demo['Demo']['url']); ?>&nbsp;</td>
-		<td><?php echo h($demo['Demo']['title']); ?>&nbsp;</td>
 		<td><?php echo h($demo['Demo']['logo_upload']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $demo['Demo']['id'])); ?>
