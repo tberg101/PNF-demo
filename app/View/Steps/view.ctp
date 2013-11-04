@@ -12,8 +12,6 @@
     }
 </style>
 
-<?php echo $this->Html->script('jquery.imagemapster.min'); // Include jQuery plugin to enhance image maps. ?>
-
 <div class="steps userview">
 
     <?php echo $this->Html->image('uploads/demos/' . $step['Step']['image_upload']); ?>

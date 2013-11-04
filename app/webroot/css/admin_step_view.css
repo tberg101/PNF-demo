@@ -1,0 +1,13 @@
+#stepimage{
+    float:left;
+}
+.coords-box{
+    width: 60px;
+    clear: none;
+    float: left;
+}
+.coords-input{
+    width: 120px;
+    clear: none;
+    float: left;
+}

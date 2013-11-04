@@ -30,7 +30,10 @@ $cakeDescription = __d('cake_dev', 'PassNfly DEMO');
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+		echo $this->Html->css('cake.clients');
+
+        echo $this->Html->script('jquery-1.10.2.min'); // Include jQuery library
+        echo $this->Html->script('jquery.imagemapster.min'); // Include jQuery plugin to enhance image maps.
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -40,6 +43,12 @@ $cakeDescription = __d('cake_dev', 'PassNfly DEMO');
 <body>
 	<div id="container">
 		<div id="header">
+            <?php echo $this->Html->link(
+                $this->Html->image('sast.logo.png', array('alt' => $cakeDescription, 'border' => '0', 'width' => '165px')),
+                'http://sast-mfa.com/',
+                array('target' => '_blank', 'escape' => false)
+            );
+            ?>
 			<h1><?php echo $this->Html->link($cakeDescription, array('controller' => 'demos', 'action' => 'index')); ?></h1>
 		</div>
 		<div id="content">
@@ -49,9 +58,7 @@ $cakeDescription = __d('cake_dev', 'PassNfly DEMO');
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
+			<?php echo 'Powered by ' . $this->Html->link('PassNfly.com','http://www.passnfly.com/',
 					array('target' => '_blank', 'escape' => false)
 				);
 			?>

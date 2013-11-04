@@ -33,7 +33,7 @@ class StepsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-        $this->layout = 'user_step';
+        $this->layout = 'client_step';
 //        $id = (isset($this->request->params['named']['page'])) ? $this->request->params['named']['page'] : $id;
 		if (!$this->Step->exists($id)) {
 			throw new NotFoundException(__('Invalid step'));
