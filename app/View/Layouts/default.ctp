@@ -27,6 +27,7 @@ $cakeDescription = __d('cake_dev', 'PassNfly DEMO manager');
 		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
+    <script type="text/javascript">var myBaseUrl = '<?php echo $this->Html->url('/');?>';</script>
 	<?php
 		echo $this->Html->meta('icon');
 
@@ -40,7 +41,7 @@ $cakeDescription = __d('cake_dev', 'PassNfly DEMO manager');
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, array('controller' => 'demos', 'action' => 'index')); ?></h1>
+			<h1><?php echo $this->Html->link($cakeDescription, array('controller' => 'demos', 'action' => 'index', 'admin' => true)); ?></h1>
 		</div>
 		<div id="content">
 

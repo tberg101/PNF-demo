@@ -32,23 +32,23 @@
             <?php echo $this->Html->image('uploads/demos/' . $step['Step']['image_upload'], array('id' => 'stepimage', 'usemap' => '#stepimage-map')); ?>
 
             <map name="stepimage-map">
-                <area shape="rect" data-name="next,all" coords="46,46,421,531" href="#" />
+                <area shape="rect" href="#" data-name="next,all" coords="<?php echo h($step['Step']['area_coords']); ?>"/>
             </map>
         </dd>
         <dt><?php echo __('Coords:'); ?></dt>
         <dd>
             <?php
-            echo '<span class="coords-input">Pos X' .
-                $this->Form->input('area_posx', array('value' => h($step['Step']['area_posx']),'class' => 'coords-box', 'id'=>'posx','label' => false))
+            echo '<span class="coords-input">TopLeft X' .
+                $this->Form->input('area_posx', array('value' => '5','class' => 'coords-box', 'id'=>'posx','label' => false))
                 .'</span>';
-            echo '<span class="coords-input">Pos Y' .
-                $this->Form->input('area_posy', array('value' => h($step['Step']['area_posy']),'class' => 'coords-box', 'id'=>'posy','label' => false))
+            echo '<span class="coords-input">TopLeft Y' .
+                $this->Form->input('area_posy', array('value' => '5','class' => 'coords-box', 'id'=>'posy','label' => false))
                 .'</span>';
-            echo '<span class="coords-input">Width' .
-                $this->Form->input('area_width', array('value' => h($step['Step']['area_width']),'class' => 'coords-box', 'id'=>'width','label' => false))
+            echo '<span class="coords-input">BottomRigth X' .
+                $this->Form->input('area_width', array('value' => '100','class' => 'coords-box', 'id'=>'width','label' => false))
                 .'</span>';
-            echo '<span class="coords-input">Height' .
-                $this->Form->input('area_height', array('value' => h($step['Step']['area_height']),'class' => 'coords-box', 'id'=>'height','label' => false))
+            echo '<span class="coords-input">BottomRight Y' .
+                $this->Form->input('area_height', array('value' => '100','class' => 'coords-box', 'id'=>'height','label' => false))
                 .'</span>';
             ?>
         </dd>
@@ -76,21 +76,24 @@
 <div class="actions">
     <h3><?php echo __('Actions'); ?></h3>
     <ul>
-        <li><?php echo $this->Html->link(__('Edit Step'), array('action' => 'edit', $step['Step']['id'], 'admin' => false)); ?></li>
-        <li><?php echo $this->Form->postLink(__('Delete Step'), array('action' => 'delete', $step['Step']['id'], 'admin' => false), null, __('Are you sure you want to delete # %s?', $step['Step']['id'])); ?> </li>
-        <li><?php echo $this->Html->link(__('List Steps'), array('action' => 'index', 'admin' => false)); ?> </li>
-        <li><?php echo $this->Html->link(__('New Step'), array('action' => 'add', 'admin' => false)); ?> </li>
+        <li><?php echo $this->Html->link(__('Edit Step'), array('action' => 'edit', $step['Step']['id'], 'admin' => true)); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete Step'), array('action' => 'delete', $step['Step']['id'], 'admin' => true), null, __('Are you sure you want to delete # %s?', $step['Step']['id'])); ?> </li>
+        <li><?php echo $this->Html->link(__('List Steps'), array('action' => 'index', 'admin' => true)); ?> </li>
+        <li><?php echo $this->Html->link(__('New Step'), array('action' => 'add', 'admin' => true)); ?> </li>
     </ul>
 </div>
 
 <script>
 
+    var timeout = null;
     var new_coords = $('area').data("name","next").attr('coords');
     var coords_array = new_coords.split(',');
     $('.coords-box').each(function (index) {
         $(this).val(coords_array[index]);
     })
 
+    var nextStepUrl = '<?php echo $this->Html->url(array('action' => 'view', urlencode($demo['Demo']['name']),$next_offset)); ?>';
+    $('area').data("name","next").attr('href', nextStepUrl);
     refreshMap();
 
     function refreshMap() {
@@ -112,15 +115,21 @@
             },
             initial_opts = {
                 mapKey: 'data-name',
+                toolTipContainer: '<div data-opacity=\"0.9\" class=\"mapster_tooltip\">' +
+            'Go to next Step</div>',
+                clickNavigate: true,
                 isSelectable: false,
                 onMouseover: function (data) {
+                    $('area').mapster('tooltip')
                     inArea = true;
                 },
                 onMouseout: function (data) {
                     inArea = false;
                 }
             };
-        opts = $.extend({}, focused_opts, initial_opts, unfocused_opts);
+        opts = $.extend({
+            showToolTip: true
+        }, focused_opts, initial_opts, unfocused_opts);
 
 
         // Bind to the image 'mouseover' and 'mouseout' events to activate or deactivate ALL the areas, like the
@@ -144,6 +153,7 @@
     }
 
     $('.coords-box').keydown(function (e) {
+        $('#stepimage').mapster('unbind');
         var keyCode = e.keyCode || e.which,
             arrow = {left: 37, up: 38, right: 39, down: 40 };
 
@@ -172,12 +182,33 @@
         })
         var new_coords = coords_array.join(",");
         $('area').data("name","next").attr('coords',new_coords);
-        refreshMap();
-        saveData();
+
+        if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+        }
+        timeout = setTimeout(saveData, 1500)
+        setTimeout(refreshMap, 50);
     });
 
     function saveData(){
-
+        var step_id = <?php echo h($step['Step']['id']); ?>;
+        var coords = $('area').data("name","next").attr('coords');
+        $.ajax({
+            type: 'POST',
+            url: myBaseUrl + 'Steps/ajax_savecoords',
+            dataType: 'json',
+            data: {
+                id: step_id,
+                coords: coords
+            },
+            success: function(data)
+            {
+                if (!data){
+                    console.log("Error! Coords NOT saved.");
+                }
+            }
+        })
     }
 </script>
 

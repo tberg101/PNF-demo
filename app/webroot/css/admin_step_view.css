@@ -11,3 +11,20 @@
     clear: none;
     float: left;
 }
+.mapster_tooltip{
+    border: 2px solid black;
+    background: none repeat scroll 0% 0% rgb(238, 238, 238);
+    width: 160px;
+    padding: 4px;
+    margin: 4px;
+    box-shadow: 3px 3px 5px rgb(83, 83, 83);
+    border-radius: 6px 6px 6px 6px;
+    opacity: 0.9;
+    display: block;
+    position: absolute;
+    text-align: center;
+    color: #000000;
+    /*left: 1180.45px; */
+    /*top: 811.083px; */
+    z-index: 9999;
+}

@@ -13,15 +13,15 @@
 	<tr>
 		<td><?php echo h($demo['Demo']['id']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($demo['Client']['name'], array('controller' => 'clients', 'action' => 'view', $demo['Client']['id'])); ?>
+			<?php echo $this->Html->link($demo['Client']['name'], array('controller' => 'clients', 'action' => 'view', $demo['Client']['id'], 'admin' => true)); ?>
 		</td>
 		<td><?php echo h($demo['Demo']['name']); ?>&nbsp;</td>
 		<td><?php echo h($demo['Demo']['url']); ?>&nbsp;</td>
 		<td><?php echo h($demo['Demo']['logo_upload']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $demo['Demo']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $demo['Demo']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $demo['Demo']['id']), null, __('Are you sure you want to delete # %s?', $demo['Demo']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $demo['Demo']['id'], 'admin' => true)); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $demo['Demo']['id'], 'admin' => true)); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $demo['Demo']['id'], 'admin' => true), null, __('Are you sure you want to delete # %s?', $demo['Demo']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -43,10 +43,10 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Demo'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Clients'), array('controller' => 'clients', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Client'), array('controller' => 'clients', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Steps'), array('controller' => 'steps', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Step'), array('controller' => 'steps', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Demo'), array('action' => 'add', 'admin' => true)); ?></li>
+		<li><?php echo $this->Html->link(__('List Clients'), array('controller' => 'clients', 'action' => 'index', 'admin' => true)); ?> </li>
+		<li><?php echo $this->Html->link(__('New Client'), array('controller' => 'clients', 'action' => 'add', 'admin' => true)); ?> </li>
+		<li><?php echo $this->Html->link(__('List Steps'), array('controller' => 'steps', 'action' => 'index', 'admin' => true)); ?> </li>
+		<li><?php echo $this->Html->link(__('New Step'), array('controller' => 'steps', 'action' => 'add', 'admin' => true)); ?> </li>
 	</ul>
 </div>
